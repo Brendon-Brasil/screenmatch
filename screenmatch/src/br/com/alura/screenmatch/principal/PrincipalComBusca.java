@@ -21,24 +21,31 @@ public class PrincipalComBusca {
         var busca = sc.nextLine();
 
         String pesquisar = "https://www.omdbapi.com/?t=" + busca + "&apikey=3d0f9078";
+        try{
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(pesquisar))
+                    .build();
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(pesquisar))
-                .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
 
+            String json = response.body();
+            System.out.println(json);
 
-        String json = response.body();
-        System.out.println(json);
-
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
-        TituloOmdb tituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
-        System.out.println(tituloOmdb);
-        Titulo titulo = new Titulo(tituloOmdb);
-        System.out.println("Titulo convertido");
-        System.out.println(titulo);
+            Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+            TituloOmdb tituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
+            System.out.println(tituloOmdb);
+            //try {
+            Titulo titulo = new Titulo(tituloOmdb);
+            System.out.println("Titulo convertido");
+            System.out.println(titulo);
+        }catch (NumberFormatException e){
+            System.out.println("Aconteceu um erro");
+            System.out.println(e.getMessage());
+        }catch (IllegalArgumentException e){
+            System.out.println("Aconteceu um erro no argumento");
+        }
 
         sc.close();
     }

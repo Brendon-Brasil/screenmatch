@@ -28,18 +28,3 @@ O sistema simula uma plataforma de filmes e séries, permitindo cálculos de tem
 
 ---
 
-## 📁 Estrutura do Projeto
-
-```text
-screenmatch/
- └── br/com/alura/screenmatch/
-     ├── calculos/
-     │   ├── CalculadoraDeTempo
-     │   ├── Classificacao
-     │   └── FiltroRecomendacao
-     ├── modelos/
-     │   ├── Filme
-     │   ├── Serie
-     │   └── Episodio
-     └── principal/
-         └── Principal

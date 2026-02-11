@@ -1,10 +1,18 @@
 package br.com.alura.screenmatch.modelos;
 
+import com.sun.jdi.IntegerValue;
+
 public class Titulo implements Comparable<Titulo> {
 
     @Override
     public int compareTo(Titulo outroTitulo) {
         return this.getNome().compareTo(outroTitulo.getNome());
+    }
+
+    @Override
+    public String toString() {
+        return "Titulo: " + nome + '\'' +
+                ", Ano de Lançamento: " + anoDeLancamento + ", " + "Duração: " + duracaoEmMinutos;
     }
 
     private String nome;
@@ -29,6 +37,12 @@ public class Titulo implements Comparable<Titulo> {
     public void avalia(double nota) {
         somaDasAvaliacoes += nota;
         totalDeAvaliacoes++;
+    }
+
+    public Titulo(TituloOmdb tituloOmdb) {
+        this.nome = tituloOmdb.title();
+        this.anoDeLancamento = Integer.valueOf(tituloOmdb.year());
+        this.duracaoEmMinutos = Integer.valueOf(tituloOmdb.runtime().substring(0,2));
     }
 
     public double pegaMedia() {
